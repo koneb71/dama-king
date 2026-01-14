@@ -35,7 +35,7 @@ type MoveRow = {
   player_id: string | null;
   from_pos: Position;
   to_pos: Position;
-  captures: Position[] | null;
+  captures: ReadonlyArray<Position> | null;
   created_at: string;
 };
 
@@ -43,7 +43,7 @@ function samePos(a: Position, b: Position): boolean {
   return a.row === b.row && a.col === b.col;
 }
 
-function sameCaptures(a: Position[] | null, b: Position[] | null): boolean {
+function sameCaptures(a: ReadonlyArray<Position> | null, b: ReadonlyArray<Position> | null): boolean {
   const aa = a ?? [];
   const bb = b ?? [];
   if (aa.length !== bb.length) return false;
