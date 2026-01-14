@@ -604,18 +604,18 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
 
   return (
     <div className="min-h-[calc(100vh-3.5rem)] bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-zinc-950 dark:via-black dark:to-zinc-900">
-      <main className="mx-auto max-w-7xl px-4 py-6 sm:px-6">
+      <main className="mx-auto h-full max-w-7xl px-2 py-2 sm:px-4 sm:py-3 lg:px-6 lg:py-4">
         {/* Error Banner */}
         {error && (
-          <div className="mb-4 rounded-xl bg-red-50 p-4 dark:bg-red-900/20">
+          <div className="mb-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 dark:border-red-900/50 dark:bg-red-900/20">
             <p className="text-sm font-medium text-red-600 dark:text-red-400">{error}</p>
           </div>
         )}
 
         {/* Game Not Found - wait for auth to load before showing this */}
         {!gameLoading && !authLoading && !game ? (
-          <div className="flex min-h-[60vh] items-center justify-center">
-            <div className="w-full max-w-md rounded-2xl border border-zinc-200/80 bg-white/80 p-8 text-center shadow-xl backdrop-blur-sm dark:border-white/10 dark:bg-zinc-900/80">
+          <div className="flex h-[calc(100vh-5.5rem)] items-center justify-center">
+            <div className="w-full max-w-md rounded-2xl border border-zinc-200/80 bg-white p-8 text-center shadow-xl dark:border-white/10 dark:bg-zinc-900">
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-zinc-100 dark:bg-zinc-800">
                 <svg className="h-8 w-8 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -638,7 +638,7 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
                     <button
                       onClick={() => void unlockSpectate()}
                       disabled={busySpectate}
-                      className="rounded-xl bg-zinc-900 px-4 py-2.5 text-sm font-medium text-white hover:bg-zinc-800 disabled:opacity-50 dark:bg-zinc-100 dark:text-black"
+                      className="rounded-xl bg-emerald-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-emerald-600 disabled:opacity-50"
                     >
                       {busySpectate ? 'Joining...' : 'Join'}
                     </button>
@@ -654,73 +654,71 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
             </div>
           </div>
         ) : (
-          <div className="grid gap-6 lg:grid-cols-[1fr,380px]">
+          <div className="flex flex-col gap-3 lg:h-[calc(100vh-5.5rem)] lg:flex-row lg:gap-4">
             {/* Left Column - Board & Game Info */}
-            <div className="space-y-4">
-              {/* Game Header */}
-              <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-4 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-zinc-900/80">
-                <div className="flex flex-wrap items-center justify-between gap-4">
-                  {/* Status Badges */}
-                  <div className="flex flex-wrap items-center gap-2">
-                    {/* Game Status Badge */}
-                    <span
-                      className={[
-                        'inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold',
-                        game?.status === 'active'
-                          ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
-                          : game?.status === 'waiting'
-                            ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
-                            : game?.status === 'finished'
-                              ? 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
-                              : 'bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400',
-                      ].join(' ')}
-                    >
-                      {game?.status === 'active' && (
-                        <span className="relative flex h-2 w-2">
-                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                          <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
-                        </span>
-                      )}
-                      {game?.status === 'active' ? 'Live' : game?.status === 'waiting' ? 'Waiting' : game?.status === 'finished' ? 'Finished' : 'Loading...'}
-                    </span>
-
-                    {/* Ranked Badge */}
-                    {game?.is_ranked && (
-                      <span className="inline-flex items-center gap-1 rounded-full bg-purple-100 px-3 py-1 text-xs font-semibold text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
-                        <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
-                          <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                        </svg>
-                        Ranked
+            <div className="flex min-h-0 flex-col lg:flex-1">
+              {/* Compact Game Header */}
+              <div className="mb-2 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-zinc-200/80 bg-white px-3 py-2 shadow-md dark:border-white/10 dark:bg-zinc-900 lg:mb-3 lg:px-4 lg:py-2.5">
+                {/* Status Badges */}
+                <div className="flex flex-wrap items-center gap-2">
+                  {/* Game Status Badge */}
+                  <span
+                    className={[
+                      'inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold',
+                      game?.status === 'active'
+                        ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
+                        : game?.status === 'waiting'
+                          ? 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
+                          : game?.status === 'finished'
+                            ? 'bg-zinc-100 text-zinc-700 dark:bg-zinc-800 dark:text-zinc-300'
+                            : 'bg-zinc-100 text-zinc-500 dark:bg-zinc-800 dark:text-zinc-400',
+                    ].join(' ')}
+                  >
+                    {game?.status === 'active' && (
+                      <span className="relative flex h-1.5 w-1.5">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
                       </span>
                     )}
+                    {game?.status === 'active' ? 'Live' : game?.status === 'waiting' ? 'Waiting' : game?.status === 'finished' ? 'Finished' : '...'}
+                  </span>
 
-                    {/* Online Count */}
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-                      <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  {/* Ranked Badge */}
+                  {game?.is_ranked && (
+                    <span className="inline-flex items-center gap-1 rounded-full bg-purple-100 px-3 py-1 text-xs font-semibold text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
+                      <svg className="h-3 w-3" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                       </svg>
-                      {onlineCount} watching
+                      Ranked
                     </span>
-                  </div>
-
-                  {/* Auth Section */}
-                  {!authLoading && !isAuthenticated && (
-                    <button
-                      onClick={() => void signInAsGuest()}
-                      className="rounded-xl bg-gradient-to-r from-red-500 to-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-red-500/25 transition-all hover:shadow-xl"
-                    >
-                      Sign in to play
-                    </button>
                   )}
+
+                  {/* Online Count */}
+                  <span className="inline-flex items-center gap-1.5 rounded-full bg-zinc-100 px-3 py-1 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
+                    <svg className="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                    {onlineCount}
+                  </span>
                 </div>
+
+                {/* Auth Section */}
+                {!authLoading && !isAuthenticated && (
+                  <button
+                    onClick={() => void signInAsGuest()}
+                    className="rounded-lg bg-gradient-to-r from-emerald-500 to-teal-500 px-4 py-2 text-xs font-semibold text-white shadow-md transition-all hover:shadow-lg"
+                  >
+                    Sign in to play
+                  </button>
+                )}
               </div>
 
-              {/* Winner Banner */}
+              {/* Winner Banner - Compact */}
               {game?.status === 'finished' && winnerColor && (
                 <div
                   className={[
-                    'rounded-2xl p-6 text-center shadow-lg',
+                    'mb-2 flex items-center justify-between gap-3 rounded-xl px-4 py-3 shadow-md',
                     didIWin
                       ? 'bg-gradient-to-r from-emerald-500 to-teal-500 text-white'
                       : didILose
@@ -730,262 +728,230 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
                           : 'bg-gradient-to-r from-zinc-700 to-zinc-800 text-white',
                   ].join(' ')}
                 >
-                  <div className="text-4xl mb-2">{didIWin ? '🎉' : didILose ? '😔' : '🏆'}</div>
-                  <h2 className="text-2xl font-bold">
-                    {didIWin ? 'You Won!' : didILose ? 'You Lost' : `${formatColor(winnerColor)} Wins!`}
-                  </h2>
-                  <p className="mt-1 opacity-90">
-                    {didIWin ? 'Congratulations on your victory!' : didILose ? 'Better luck next time!' : 'Game Over'}
-                  </p>
-
-                  {/* Best-of series controls */}
-                  {game.best_of > 1 ? (
-                    <div className="mt-4 space-y-3">
-                      <div className="flex flex-wrap items-center justify-center gap-3 text-sm">
-                        <span className="rounded-full bg-white/15 px-3 py-1">
-                          Best of {game.best_of} • Round {game.round_number}
-                        </span>
-                        <span className="rounded-full bg-white/15 px-3 py-1">
-                          Red {game.series_red_wins} – {game.series_black_wins} Black
-                          {game.series_draws > 0 ? ` • Draws ${game.series_draws}` : ''}
-                        </span>
-                      </div>
-
-                      {!game.series_over ? (
-                        <button
-                          type="button"
-                          onClick={() => void startNextRound()}
-                          className="rounded-lg bg-white/20 px-6 py-2 font-semibold backdrop-blur-sm transition-all hover:bg-white/30"
-                        >
-                          Start next round
-                        </button>
-                      ) : (
-                        <div className="text-sm opacity-90">Series complete.</div>
+                  <div className="flex items-center gap-3">
+                    <span className="text-2xl">{didIWin ? '🎉' : didILose ? '😔' : '🏆'}</span>
+                    <div>
+                      <h2 className="font-bold">
+                        {didIWin ? 'You Won!' : didILose ? 'You Lost' : `${formatColor(winnerColor)} Wins!`}
+                      </h2>
+                      {game.best_of > 1 && (
+                        <p className="text-xs opacity-90">
+                          Best of {game.best_of} • Red {game.series_red_wins} – {game.series_black_wins} Black
+                        </p>
                       )}
                     </div>
-                  ) : null}
+                  </div>
+                  {game.best_of > 1 && !game.series_over && (
+                    <button
+                      type="button"
+                      onClick={() => void startNextRound()}
+                      className="rounded-lg bg-white/20 px-3 py-1.5 text-sm font-semibold backdrop-blur-sm transition-all hover:bg-white/30"
+                    >
+                      Next round
+                    </button>
+                  )}
                 </div>
               )}
 
-              {/* Join Banner */}
+              {/* Join Banner - Compact */}
               {joinable && (
-                <div className="rounded-2xl bg-gradient-to-r from-amber-500 to-orange-500 p-6 text-white shadow-lg">
-                  <div className="flex flex-wrap items-center justify-between gap-4">
-                    <div>
-                      <h3 className="text-lg font-bold">Join this game!</h3>
-                      <p className="text-sm opacity-90">Play as Black and start the match</p>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {!game.is_public && (
-                        <input
-                          className="w-32 rounded-lg bg-white/20 px-3 py-2 text-sm placeholder-white/60 outline-none backdrop-blur-sm"
-                          placeholder="Room code"
-                          value={roomCode}
-                          onChange={(e) => setRoomCode(e.target.value)}
-                        />
-                      )}
-                      <button
-                        onClick={() => void tryJoinAsBlack()}
-                        disabled={busyJoin}
-                        className="rounded-lg bg-white px-4 py-2 text-sm font-semibold text-amber-600 transition-all hover:bg-amber-50 disabled:opacity-50"
-                      >
-                        {busyJoin ? 'Joining...' : 'Join as Black'}
-                      </button>
-                    </div>
+                <div className="mb-2 flex items-center justify-between gap-3 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-4 py-3 text-white shadow-md">
+                  <div>
+                    <h3 className="font-bold">Join this game!</h3>
+                    <p className="text-xs opacity-90">Play as Black</p>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {!game.is_public && (
+                      <input
+                        className="w-24 rounded-lg bg-white/20 px-2 py-1.5 text-sm placeholder-white/60 outline-none backdrop-blur-sm"
+                        placeholder="Code"
+                        value={roomCode}
+                        onChange={(e) => setRoomCode(e.target.value)}
+                      />
+                    )}
+                    <button
+                      onClick={() => void tryJoinAsBlack()}
+                      disabled={busyJoin}
+                      className="rounded-lg bg-white px-3 py-1.5 text-sm font-semibold text-amber-600 transition-all hover:bg-amber-50 disabled:opacity-50"
+                    >
+                      {busyJoin ? '...' : 'Join'}
+                    </button>
                   </div>
                 </div>
               )}
 
-              {/* Board */}
-              <div className="flex justify-center">
+              {/* Board - Centered and fills available space */}
+              <div className="mb-4 flex flex-1 items-center justify-center lg:mb-0">
                 <Board
                   board={board}
                   perspective={perspective}
                   selected={selected}
                   legalMoves={legalMoves}
                   onSquareClick={onSquareClick}
+                  compact
                 />
               </div>
 
               {/* Turn Indicator */}
               {game?.status === 'active' && (
-                <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-4 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-zinc-900/80">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div
-                        className={[
-                          'h-10 w-10 rounded-full shadow-lg',
-                          game.current_turn === 'red'
-                            ? 'bg-gradient-to-br from-red-500 to-red-700 ring-4 ring-red-200 dark:ring-red-900/50'
-                            : 'bg-gradient-to-br from-zinc-700 to-zinc-900 ring-4 ring-zinc-300 dark:from-zinc-300 dark:to-zinc-500 dark:ring-zinc-700',
-                        ].join(' ')}
-                      />
-                      <div>
-                        <div className="font-semibold">
-                          {isMyTurn ? "Your turn!" : `${formatColor(game.current_turn)}'s turn`}
-                        </div>
-                        <div className="text-sm text-zinc-500 dark:text-zinc-400">
-                          {isMyTurn
-                            ? 'Select a piece to move'
-                            : canPlay
-                              ? `Waiting for ${formatColor(otherPlayer(myColor!))}...`
-                              : isSpectator
-                                ? 'Watching the game'
-                                : 'Spectating'}
-                        </div>
-                      </div>
-                    </div>
+                <div className="mt-3 flex items-center justify-center">
+                  <div
+                    className={[
+                      "flex items-center gap-3 rounded-full px-5 py-2.5 shadow-md transition-all",
+                      isMyTurn
+                        ? "bg-gradient-to-r from-emerald-500 to-teal-500 text-white"
+                        : "border border-zinc-200 bg-white text-zinc-600 dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-300",
+                    ].join(" ")}
+                  >
+                    <div
+                      className={[
+                        "h-6 w-6 rounded-full shadow-inner",
+                        game.current_turn === "red"
+                          ? "bg-gradient-to-br from-red-400 to-red-600"
+                          : "bg-gradient-to-br from-zinc-600 to-zinc-800 dark:from-zinc-300 dark:to-zinc-500",
+                      ].join(" ")}
+                    />
+                    <span className="font-semibold">
+                      {isMyTurn ? "Your Turn" : canPlay ? `${formatColor(game.current_turn)}'s Turn` : "Spectating"}
+                    </span>
                     {isMyTurn && (
-                      <div className="flex items-center gap-2 text-emerald-600 dark:text-emerald-400">
-                        <span className="relative flex h-3 w-3">
-                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-                          <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-500" />
-                        </span>
-                        <span className="text-sm font-medium">Make your move</span>
-                      </div>
+                      <span className="relative flex h-2 w-2">
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                        <span className="relative inline-flex h-2 w-2 rounded-full bg-white" />
+                      </span>
                     )}
                     {busyMove && (
-                      <div className="flex items-center gap-2 text-zinc-500">
-                        <div className="h-4 w-4 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-600" />
-                        <span className="text-sm">Sending...</span>
-                      </div>
+                      <div className="h-4 w-4 animate-spin rounded-full border-2 border-zinc-300 border-t-zinc-600" />
                     )}
                   </div>
                 </div>
               )}
             </div>
 
-            {/* Right Column - Players & Info */}
-            <div className="space-y-4">
-              {/* Players Card */}
-              <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-zinc-900/80">
-                <h3 className="mb-4 flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                  <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                  </svg>
-                  Players
-                </h3>
-                <div className="space-y-3">
+            {/* Right Column - Players & Info (Scrollable) */}
+            <div className="flex min-h-0 flex-col gap-2 overflow-y-auto lg:w-[340px] lg:shrink-0 lg:gap-3">
+              {/* Players Card - Compact on mobile */}
+              <div className="overflow-hidden rounded-xl border border-zinc-200/80 bg-white shadow-md dark:border-white/10 dark:bg-zinc-900 lg:rounded-2xl lg:shadow-lg">
+                <div className="flex items-stretch">
                   {/* Red Player */}
                   <div
                     className={[
-                      'flex items-center gap-3 rounded-xl p-3 transition-all',
-                      game?.current_turn === 'red' && game?.status === 'active'
-                        ? 'bg-red-50 ring-2 ring-red-200 dark:bg-red-900/20 dark:ring-red-800'
-                        : 'bg-zinc-50 dark:bg-zinc-800/50',
+                      'flex flex-1 flex-col items-center justify-center gap-1 p-2 transition-all lg:gap-2 lg:p-4',
+                      game?.current_turn === 'red' && game?.status === 'active' ? 'bg-red-50 dark:bg-red-900/20' : '',
                     ].join(' ')}
                   >
-                    <div className="h-10 w-10 rounded-full bg-gradient-to-br from-red-500 to-red-700 shadow-lg ring-2 ring-red-300/50" />
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold">Red</span>
-                        {myColor === 'red' && (
-                          <span className="rounded-full bg-red-100 px-2 py-0.5 text-xs font-medium text-red-700 dark:bg-red-900/30 dark:text-red-400">
-                            You
-                          </span>
-                        )}
-                        {winnerColor === 'red' && (
-                          <span className="text-amber-500">👑</span>
-                        )}
+                    <div className="relative">
+                      <div className="h-10 w-10 rounded-full bg-gradient-to-br from-red-400 to-red-600 shadow-lg ring-2 ring-red-300/50 lg:h-12 lg:w-12" />
+                      {game?.current_turn === 'red' && game?.status === 'active' && (
+                        <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-400 ring-2 ring-white dark:ring-zinc-900 lg:-bottom-1 lg:-right-1 lg:h-4 lg:w-4" />
+                      )}
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xs font-bold lg:text-sm">
+                        {myColor === 'red' ? 'You' : 'Red'}
                       </div>
-                      <div className="text-sm text-zinc-500 dark:text-zinc-400">
-                        {game?.red_player_id ? `${game.red_player_id.slice(0, 8)}...` : 'Waiting...'}
+                      <div className="hidden text-xs text-zinc-500 dark:text-zinc-400 lg:block">
+                        {game?.red_player_id ? `${game.red_player_id.slice(0, 6)}...` : 'Waiting'}
                       </div>
                     </div>
+                    {winnerColor === 'red' && <span className="text-sm lg:text-lg">👑</span>}
                   </div>
 
                   {/* VS Divider */}
-                  <div className="flex items-center gap-3">
-                    <div className="h-px flex-1 bg-zinc-200 dark:bg-zinc-700" />
-                    <span className="text-xs font-bold text-zinc-400">VS</span>
-                    <div className="h-px flex-1 bg-zinc-200 dark:bg-zinc-700" />
+                  <div className="flex flex-col items-center justify-center bg-zinc-100 px-2 dark:bg-zinc-800 lg:px-3">
+                    <div className="rounded-full bg-amber-100 px-2 py-0.5 dark:bg-amber-900/30 lg:px-3 lg:py-1">
+                      <span className="text-[10px] font-bold text-amber-600 dark:text-amber-400 lg:text-xs">VS</span>
+                    </div>
                   </div>
 
                   {/* Black Player */}
                   <div
                     className={[
-                      'flex items-center gap-3 rounded-xl p-3 transition-all',
-                      game?.current_turn === 'black' && game?.status === 'active'
-                        ? 'bg-zinc-100 ring-2 ring-zinc-300 dark:bg-zinc-700/50 dark:ring-zinc-600'
-                        : 'bg-zinc-50 dark:bg-zinc-800/50',
+                      'flex flex-1 flex-col items-center justify-center gap-1 p-2 transition-all lg:gap-2 lg:p-4',
+                      game?.current_turn === 'black' && game?.status === 'active' ? 'bg-zinc-100 dark:bg-zinc-700/30' : '',
                     ].join(' ')}
                   >
-                    <div className="h-10 w-10 rounded-full bg-gradient-to-br from-zinc-700 to-zinc-900 shadow-lg ring-2 ring-zinc-400/30 dark:from-zinc-300 dark:to-zinc-500" />
-                    <div className="flex-1">
-                      <div className="flex items-center gap-2">
-                        <span className="font-semibold">Black</span>
-                        {myColor === 'black' && (
-                          <span className="rounded-full bg-zinc-200 px-2 py-0.5 text-xs font-medium text-zinc-700 dark:bg-zinc-700 dark:text-zinc-300">
-                            You
-                          </span>
-                        )}
-                        {winnerColor === 'black' && (
-                          <span className="text-amber-500">👑</span>
-                        )}
+                    <div className="relative">
+                      <div className="h-10 w-10 rounded-full bg-gradient-to-br from-zinc-600 to-zinc-800 shadow-lg ring-2 ring-zinc-400/50 dark:from-zinc-300 dark:to-zinc-500 lg:h-12 lg:w-12" />
+                      {game?.current_turn === 'black' && game?.status === 'active' && (
+                        <div className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-400 ring-2 ring-white dark:ring-zinc-900 lg:-bottom-1 lg:-right-1 lg:h-4 lg:w-4" />
+                      )}
+                    </div>
+                    <div className="text-center">
+                      <div className="text-xs font-bold lg:text-sm">
+                        {myColor === 'black' ? 'You' : 'Black'}
                       </div>
-                      <div className="text-sm text-zinc-500 dark:text-zinc-400">
-                        {game?.black_player_id ? `${game.black_player_id.slice(0, 8)}...` : 'Waiting...'}
+                      <div className="hidden text-xs text-zinc-500 dark:text-zinc-400 lg:block">
+                        {game?.black_player_id ? `${game.black_player_id.slice(0, 6)}...` : 'Waiting'}
                       </div>
                     </div>
+                    {winnerColor === 'black' && <span className="text-sm lg:text-lg">👑</span>}
                   </div>
                 </div>
 
                 {/* Spectator Badge */}
                 {isSpectator && (
-                  <div className="mt-4 flex items-center gap-2 rounded-lg bg-blue-50 p-3 text-sm text-blue-700 dark:bg-blue-900/20 dark:text-blue-400">
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                    </svg>
-                    You are spectating this game
+                  <div className="border-t border-zinc-200 bg-zinc-50 px-3 py-1.5 dark:border-zinc-700 dark:bg-zinc-800/50 lg:px-4 lg:py-2">
+                    <div className="flex items-center justify-center gap-1.5 text-[10px] text-blue-600 dark:text-blue-400 lg:gap-2 lg:text-xs">
+                      <svg className="h-3 w-3 lg:h-4 lg:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                      </svg>
+                      Spectating
+                    </div>
                   </div>
                 )}
               </div>
 
-              {/* Move History */}
-              <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-5 shadow-lg backdrop-blur-sm dark:border-white/10 dark:bg-zinc-900/80">
-                <div className="mb-4 flex items-center justify-between">
-                  <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
-                    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              {/* Move History - Constrained height on mobile */}
+              <div className="flex max-h-[200px] min-h-0 flex-col rounded-xl border border-zinc-200/80 bg-white p-3 shadow-md dark:border-white/10 dark:bg-zinc-900 lg:max-h-none lg:flex-1 lg:rounded-2xl lg:p-4">
+                <div className="mb-2 flex items-center justify-between lg:mb-3">
+                  <h3 className="flex items-center gap-1.5 text-xs font-bold lg:gap-2 lg:text-sm">
+                    <svg className="h-3.5 w-3.5 text-amber-500 lg:h-4 lg:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                     </svg>
                     Move History
                   </h3>
-                  <span className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-xs font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400">
-                    {moves.length} moves
+                  <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 lg:px-2.5 lg:text-xs">
+                    {moves.length}
                   </span>
                 </div>
-                <div className="max-h-[250px] space-y-2 overflow-auto">
+                <div className="flex-1 space-y-1.5 overflow-y-auto lg:space-y-2">
                   {moves.length === 0 ? (
-                    <p className="py-4 text-center text-sm text-zinc-400">No moves yet</p>
+                    <div className="flex flex-col items-center justify-center py-4 text-zinc-400 lg:py-8">
+                      <svg className="mb-1.5 h-6 w-6 opacity-50 lg:mb-2 lg:h-8 lg:w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                      </svg>
+                      <span className="text-[10px] lg:text-xs">No moves yet</span>
+                    </div>
                   ) : (
                     moves.map((m, idx) => {
                       const isRedMove = idx % 2 === 0;
                       return (
                         <div
                           key={m.id}
-                          className="flex items-center gap-3 rounded-lg bg-zinc-50 p-2.5 dark:bg-zinc-800/50"
+                          className="flex items-center gap-2 rounded-lg bg-zinc-50 px-2 py-1.5 dark:bg-zinc-800/50 lg:gap-3 lg:rounded-xl lg:px-3 lg:py-2"
                         >
                           <div
                             className={[
-                              'flex h-7 w-7 items-center justify-center rounded-full text-xs font-bold text-white',
+                              'flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[10px] font-bold lg:h-6 lg:w-6 lg:text-xs',
                               isRedMove
-                                ? 'bg-gradient-to-br from-red-500 to-red-600'
-                                : 'bg-gradient-to-br from-zinc-600 to-zinc-800 dark:from-zinc-400 dark:to-zinc-600',
+                                ? 'bg-gradient-to-br from-red-400 to-red-600 text-white'
+                                : 'bg-gradient-to-br from-zinc-600 to-zinc-800 text-white dark:from-zinc-300 dark:to-zinc-500 dark:text-zinc-800',
                             ].join(' ')}
                           >
                             {m.move_number}
                           </div>
-                          <div className="flex-1">
-                            <div className="text-sm font-medium">
-                              ({m.from_pos.row},{m.from_pos.col}) → ({m.to_pos.row},{m.to_pos.col})
+                          <div className="min-w-0 flex-1">
+                            <div className="truncate text-xs font-medium lg:text-sm">
+                              {String.fromCharCode(97 + m.from_pos.col)}{8 - m.from_pos.row} → {String.fromCharCode(97 + m.to_pos.col)}{8 - m.to_pos.row}
                             </div>
-                            {m.captures && m.captures.length > 0 && (
-                              <div className="text-xs text-amber-600 dark:text-amber-400">
-                                ⚔️ Captured {m.captures.length} piece{m.captures.length > 1 ? 's' : ''}
-                              </div>
-                            )}
                           </div>
+                          {m.captures && m.captures.length > 0 && (
+                            <span className="rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium text-amber-600 dark:bg-amber-900/30 dark:text-amber-400 lg:px-2 lg:text-xs">
+                              ×{m.captures.length}
+                            </span>
+                          )}
                         </div>
                       );
                     })
@@ -993,7 +959,7 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
                 </div>
               </div>
 
-              {/* Chat */}
+              {/* Chat - Compact */}
               <ChatPanel
                 messages={chat.messages}
                 loading={chat.loading}

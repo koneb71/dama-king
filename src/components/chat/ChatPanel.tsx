@@ -42,17 +42,24 @@ export function ChatPanel({
   }, [messages.length]);
 
   return (
-    <div className="rounded-xl border border-zinc-200 bg-white p-5 dark:border-white/15 dark:bg-black">
-      <div className="flex items-center justify-between">
-        <div className="text-sm font-medium">Chat</div>
-        <div className="text-xs text-zinc-600 dark:text-zinc-400">{countLabel}</div>
+    <div className="rounded-xl border border-zinc-200/80 bg-white p-3 shadow-md dark:border-white/10 dark:bg-zinc-900 lg:rounded-2xl lg:p-4">
+      <div className="mb-2 flex items-center justify-between lg:mb-3">
+        <h3 className="flex items-center gap-1.5 text-xs font-bold lg:gap-2 lg:text-sm">
+          <svg className="h-3.5 w-3.5 text-blue-500 lg:h-4 lg:w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+          Chat
+        </h3>
+        <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-medium text-zinc-600 dark:bg-zinc-800 dark:text-zinc-400 lg:px-2.5 lg:text-xs">
+          {messages.length}
+        </span>
       </div>
 
-      {error ? <div className="mt-2 text-sm text-red-600 dark:text-red-400">{error}</div> : null}
+      {error ? <div className="mb-2 text-[10px] text-red-600 dark:text-red-400 lg:text-xs">{error}</div> : null}
 
       <div
         ref={scrollRef}
-        className="mt-3 max-h-[40vh] space-y-2 overflow-auto text-sm lg:max-h-[260px]"
+        className="max-h-[80px] space-y-1.5 overflow-auto text-xs lg:max-h-[150px] lg:space-y-2"
         onScroll={() => {
           const el = scrollRef.current;
           if (!el) return;
@@ -60,25 +67,29 @@ export function ChatPanel({
         }}
       >
         {loading ? (
-          <div className="text-zinc-600 dark:text-zinc-400">Loading chat…</div>
+          <div className="py-2 text-center text-[10px] text-zinc-500 lg:py-4 lg:text-xs">Loading…</div>
         ) : messages.length === 0 ? (
-          <div className="text-zinc-600 dark:text-zinc-400">No messages yet.</div>
+          <div className="flex flex-col items-center justify-center py-2 text-zinc-400 lg:py-4">
+            <svg className="mb-1 h-5 w-5 opacity-50 lg:h-6 lg:w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            <span className="text-[10px] lg:text-xs">No messages yet</span>
+          </div>
         ) : (
           messages.map((m) => <ChatMessage key={m.id} message={m} isMine={!!myUserId && m.player_id === myUserId} />)
         )}
       </div>
 
-      <div className="mt-3 flex gap-2">
-        <textarea
-          rows={2}
-          className="w-full resize-none rounded-md border border-zinc-200 bg-white px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-zinc-900/20 disabled:opacity-70 dark:border-white/15 dark:bg-black dark:focus:ring-zinc-100/20"
-          placeholder={canChat ? 'Type a message…' : 'Sign in to chat…'}
+      <div className="mt-2 flex gap-1.5 lg:mt-3 lg:gap-2">
+        <input
+          type="text"
+          className="flex-1 rounded-lg border border-zinc-200 bg-white px-2.5 py-1.5 text-xs outline-none placeholder:text-zinc-400 focus:border-zinc-400 focus:ring-1 focus:ring-zinc-900/10 disabled:opacity-50 dark:border-zinc-700 dark:bg-zinc-800 dark:focus:ring-zinc-100/20 lg:px-3 lg:py-2 lg:text-sm"
+          placeholder={canChat ? 'Type a message…' : 'Sign in to chat'}
           value={draft}
           onChange={(e) => setDraft(e.target.value)}
           disabled={!canChat}
           onKeyDown={(e) => {
             if (e.key !== 'Enter') return;
-            if (e.shiftKey) return; // newline
             e.preventDefault();
             onSend();
           }}
@@ -86,7 +97,7 @@ export function ChatPanel({
         <button
           type="button"
           disabled={!canChat || sending}
-          className="h-[52px] rounded-md bg-zinc-900 px-3 py-2 text-sm font-medium text-white transition-colors hover:bg-zinc-800 disabled:opacity-50 active:scale-[0.98] motion-reduce:transform-none dark:bg-zinc-100 dark:text-black dark:hover:bg-zinc-200"
+          className="rounded-lg bg-emerald-500 px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-emerald-600 disabled:opacity-50 lg:px-4 lg:py-2 lg:text-sm"
           onClick={onSend}
         >
           {sending ? '…' : 'Send'}

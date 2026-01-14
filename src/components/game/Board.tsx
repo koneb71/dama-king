@@ -22,9 +22,11 @@ type Props = {
   selected: Position | null;
   legalMoves: ReadonlyArray<Move>;
   onSquareClick: (pos: Position) => void;
+  /** Optional: compact mode for fitting in viewport without scroll */
+  compact?: boolean;
 };
 
-export function Board({ board, perspective, selected, legalMoves, onSquareClick }: Props) {
+export function Board({ board, perspective, selected, legalMoves, onSquareClick, compact = false }: Props) {
   const size = board.length;
 
   const legalFrom = new Set<string>(legalMoves.map((m) => keyPos(m.from)));
@@ -38,13 +40,20 @@ export function Board({ board, perspective, selected, legalMoves, onSquareClick 
     return { row: size - 1 - displayRow, col: size - 1 - displayCol };
   }
 
+  // Compact mode uses smaller squares to fit viewport without scrolling
+  // On mobile (portrait), use vw-based sizing for full width
+  // On desktop or larger screens, use vh-based sizing to fit viewport height
+  const squareSize = compact
+    ? "clamp(28px, min(10.5vw, 8.5vh), 72px)"
+    : "clamp(32px, 11vw, 72px)";
+
   return (
     <div
       className="relative inline-block max-w-full"
       style={
         {
           // Responsive square size that fits even narrow phones.
-          ["--sq" as never]: "clamp(32px, 9vw, 72px)",
+          ["--sq" as never]: squareSize,
         } as CSSProperties
       }
     >

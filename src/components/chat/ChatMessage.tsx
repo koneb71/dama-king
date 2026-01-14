@@ -21,18 +21,17 @@ export function ChatMessage({
   return (
     <div
       className={[
-        'rounded-md border px-3 py-2',
-        'border-zinc-200 dark:border-white/15',
-        isMine ? 'bg-zinc-50 dark:bg-white/5' : 'bg-white dark:bg-black',
+        'rounded-md px-2 py-1.5 lg:rounded-lg lg:px-3 lg:py-2',
+        isMine ? 'bg-emerald-50 dark:bg-emerald-900/20' : 'bg-zinc-50 dark:bg-zinc-800/50',
       ].join(' ')}
     >
-      <div className="flex items-center justify-between gap-3">
-        <div className="text-xs text-zinc-600 dark:text-zinc-400">
-          {isMine ? <span className="font-medium">You</span> : name}
+      <div className="flex items-center justify-between gap-2">
+        <div className={['text-[10px] font-medium lg:text-xs', isMine ? 'text-emerald-600 dark:text-emerald-400' : 'text-zinc-500 dark:text-zinc-400'].join(' ')}>
+          {isMine ? 'You' : name}
         </div>
-        <div className="text-xs text-zinc-500 dark:text-zinc-400">{formatTime(message.created_at)}</div>
+        <div className="text-[10px] text-zinc-400 dark:text-zinc-500 lg:text-xs">{formatTime(message.created_at)}</div>
       </div>
-      <div className="mt-1 whitespace-pre-wrap text-sm text-zinc-900 dark:text-zinc-50">{message.message}</div>
+      <div className="mt-0.5 whitespace-pre-wrap text-xs text-zinc-700 dark:text-zinc-200 lg:mt-1 lg:text-sm">{message.message}</div>
     </div>
   );
 }
