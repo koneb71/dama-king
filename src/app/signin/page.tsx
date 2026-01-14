@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 
+import { Footer } from '@/components/layout/Footer';
 import { useAuth } from '@/hooks/useAuth';
 
 type AuthTab = 'signin' | 'signup';
@@ -130,9 +131,10 @@ export default function SignInPage() {
   // Show welcome screen for authenticated guests
   if (isAuthenticated && isGuest) {
     return (
-      <div className="relative flex min-h-[calc(100vh-3.5rem)] items-center justify-center overflow-hidden bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-zinc-950 dark:via-black dark:to-zinc-900">
-        <FloatingPieces />
-        <div className="relative z-10 w-full max-w-md px-4">
+      <div className="flex min-h-[calc(100vh-3.5rem)] flex-col bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-zinc-950 dark:via-black dark:to-zinc-900">
+        <div className="relative flex flex-1 items-center justify-center overflow-hidden">
+          <FloatingPieces />
+          <div className="relative z-10 w-full max-w-md px-4 py-12">
           <div className="rounded-2xl border border-zinc-200/80 bg-white/80 p-8 shadow-xl backdrop-blur-sm dark:border-white/10 dark:bg-zinc-900/80">
             <div className="text-center">
               <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 shadow-lg">
@@ -189,12 +191,15 @@ export default function SignInPage() {
             )}
           </div>
         </div>
-        <style jsx>{`
-          @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(5deg); }
-          }
-        `}</style>
+          <style jsx>{`
+            @keyframes float {
+              0%, 100% { transform: translateY(0px) rotate(0deg); }
+              50% { transform: translateY(-20px) rotate(5deg); }
+            }
+          `}</style>
+        </div>
+
+        <Footer />
       </div>
     );
   }
@@ -202,20 +207,24 @@ export default function SignInPage() {
   // Loading state
   if (isLoading) {
     return (
-      <div className="flex min-h-[calc(100vh-3.5rem)] items-center justify-center">
-        <div className="h-8 w-8 animate-spin rounded-full border-4 border-zinc-200 border-t-zinc-900 dark:border-zinc-700 dark:border-t-zinc-100" />
+      <div className="flex min-h-[calc(100vh-3.5rem)] flex-col bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-zinc-950 dark:via-black dark:to-zinc-900">
+        <div className="flex flex-1 items-center justify-center">
+          <div className="h-8 w-8 animate-spin rounded-full border-4 border-zinc-200 border-t-zinc-900 dark:border-zinc-700 dark:border-t-zinc-100" />
+        </div>
+        <Footer />
       </div>
     );
   }
 
   return (
-    <div className="relative flex min-h-[calc(100vh-3.5rem)] items-center justify-center overflow-hidden bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-zinc-950 dark:via-black dark:to-zinc-900">
-      <FloatingPieces />
+    <div className="flex min-h-[calc(100vh-3.5rem)] flex-col bg-gradient-to-br from-zinc-50 via-white to-zinc-100 dark:from-zinc-950 dark:via-black dark:to-zinc-900">
+      <div className="relative flex flex-1 items-center justify-center overflow-hidden">
+        <FloatingPieces />
 
-      <div className="relative z-10 w-full max-w-md px-4 py-12">
+        <div className="relative z-10 w-full max-w-md px-4 py-12">
         {/* Header */}
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4">
+          <div className="mx-auto mb-4 flex justify-center">
             <svg className="h-16 w-16" viewBox="0 0 64 64" fill="none">
               <defs>
                 <linearGradient id="signinPieceGrad" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -448,12 +457,15 @@ export default function SignInPage() {
         </div>
       </div>
 
-      <style jsx>{`
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          50% { transform: translateY(-20px) rotate(5deg); }
-        }
-      `}</style>
+        <style jsx>{`
+          @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+          }
+        `}</style>
+      </div>
+
+      <Footer />
     </div>
   );
 }

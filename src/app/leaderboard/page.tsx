@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
 
+import { Footer } from '@/components/layout/Footer';
 import { useAuth } from '@/hooks/useAuth';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 
@@ -470,6 +471,8 @@ export default function LeaderboardPage() {
           </div>
         </div>
       </main>
+
+      <Footer />
     </div>
   );
 }

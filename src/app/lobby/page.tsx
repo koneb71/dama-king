@@ -8,6 +8,7 @@ import { GameList } from '@/components/lobby/GameList';
 import { JoinByCodeModal } from '@/components/lobby/JoinByCodeModal';
 import { MatchmakingQueue } from '@/components/lobby/MatchmakingQueue';
 import type { LobbyGameRow } from '@/components/lobby/types';
+import { Footer } from '@/components/layout/Footer';
 import { useAuth } from '@/hooks/useAuth';
 import { getSupabaseBrowserClient } from '@/lib/supabase/client';
 
@@ -369,6 +370,8 @@ export default function LobbyPage() {
           void loadGames();
         }}
       />
+
+      <Footer />
     </div>
   );
 }
