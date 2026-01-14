@@ -137,6 +137,35 @@ export default function LandingPage() {
 
               <LandingHeroClient variant="cta" />
 
+              <div className="mt-6 flex justify-center lg:justify-start">
+                <a
+                  href="https://www.producthunt.com/products/dama-king?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-dama-king"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block dark:hidden"
+                >
+                  <img
+                    alt="Dama King - Play Filipino Dama online: ranked, chat, AI, replays | Product Hunt"
+                    width="250"
+                    height="54"
+                    src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1063048&theme=light&t=1768425319270"
+                  />
+                </a>
+                <a
+                  href="https://www.producthunt.com/products/dama-king?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-dama-king"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hidden dark:block"
+                >
+                  <img
+                    alt="Dama King - Play Filipino Dama online: ranked, chat, AI, replays | Product Hunt"
+                    width="250"
+                    height="54"
+                    src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1063048&theme=dark&t=1768425319270"
+                  />
+                </a>
+              </div>
+
             </div>
 
             {/* Hero Board Preview */}

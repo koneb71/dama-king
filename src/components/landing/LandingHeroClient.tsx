@@ -76,29 +76,54 @@ export function LandingHeroClient({ variant }: { variant: Variant }) {
   // CTA
   return (
     <div className="mt-8">
-      <div className="flex flex-col gap-4 sm:flex-row sm:flex-wrap sm:justify-center lg:justify-start">
+      <div className="mx-auto flex w-full max-w-xl flex-row items-stretch gap-3 lg:mx-0">
         {isLoading ? (
-          <div className="h-12 w-56 animate-pulse rounded-2xl bg-zinc-200/60 dark:bg-zinc-800/60" />
+          <div className="h-14 w-full animate-pulse rounded-2xl bg-zinc-200/60 dark:bg-zinc-800/60" />
         ) : isAuthenticated ? (
           <>
             <Link
               href="/lobby"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 px-8 py-4 text-lg font-semibold text-white shadow-xl shadow-emerald-500/25 transition-all hover:shadow-2xl hover:shadow-emerald-500/30"
+              className={[
+                'inline-flex flex-[2] items-center justify-center gap-2 rounded-2xl',
+                'h-14 px-5 text-base font-semibold sm:px-7 sm:text-lg',
+                'bg-gradient-to-r from-emerald-500 to-teal-500 text-white',
+                'shadow-lg shadow-emerald-500/25 transition-all',
+                'hover:shadow-xl hover:shadow-emerald-500/30 active:translate-y-px motion-reduce:transform-none',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black',
+              ].join(' ')}
             >
               Continue to Lobby
             </Link>
             <Link
               href="/play"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-zinc-200 bg-white px-8 py-4 text-lg font-semibold transition-all hover:bg-zinc-50 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+              className={[
+                'inline-flex flex-1 items-center justify-center gap-2 rounded-2xl',
+                'h-14 px-4 text-base font-semibold sm:px-6 sm:text-lg',
+                'border border-zinc-200 bg-white text-zinc-900',
+                'shadow-sm transition-all',
+                'hover:bg-zinc-50 hover:shadow-md active:translate-y-px motion-reduce:transform-none',
+                'dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-700',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black',
+              ].join(' ')}
             >
-              Play vs AI
+              <span className="hidden sm:inline">Play vs AI</span>
+              <span className="sm:hidden">AI</span>
             </Link>
             {isGuest ? (
               <Link
                 href="/signin"
-                className="inline-flex items-center justify-center gap-2 rounded-2xl border border-amber-200 bg-amber-50 px-8 py-4 text-lg font-semibold text-amber-800 transition-all hover:bg-amber-100 dark:border-amber-500/30 dark:bg-amber-900/20 dark:text-amber-200 dark:hover:bg-amber-900/30"
+                className={[
+                  'inline-flex flex-1 items-center justify-center gap-2 rounded-2xl',
+                  'h-14 px-4 text-base font-semibold sm:px-6 sm:text-lg',
+                  'border border-amber-200 bg-amber-50 text-amber-900',
+                  'shadow-sm transition-all',
+                  'hover:bg-amber-100 hover:shadow-md active:translate-y-px motion-reduce:transform-none',
+                  'dark:border-amber-500/30 dark:bg-amber-900/20 dark:text-amber-100 dark:hover:bg-amber-900/30',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-400/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black',
+                ].join(' ')}
               >
-                Upgrade account
+                <span className="hidden sm:inline">Upgrade</span>
+                <span className="sm:hidden">Upgrade</span>
               </Link>
             ) : null}
           </>
@@ -106,23 +131,32 @@ export function LandingHeroClient({ variant }: { variant: Variant }) {
           <>
             <Link
               href="/play"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-red-500 to-orange-500 px-8 py-4 text-lg font-semibold text-white shadow-xl shadow-red-500/25 transition-all hover:shadow-2xl hover:shadow-red-500/30"
+              className={[
+                'inline-flex flex-[2] items-center justify-center gap-2 rounded-2xl',
+                'h-14 px-5 text-base font-semibold sm:px-7 sm:text-lg',
+                'bg-gradient-to-r from-red-500 to-orange-500 text-white',
+                'shadow-lg shadow-red-500/25 transition-all',
+                'hover:shadow-xl hover:shadow-red-500/30 active:translate-y-px motion-reduce:transform-none',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500/50 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black',
+              ].join(' ')}
             >
-              Play Now — Free
+              <span className="hidden sm:inline">Play Now — Free</span>
+              <span className="sm:hidden">Play Free</span>
             </Link>
             <Link
               href="/signin"
-              className="inline-flex items-center justify-center gap-2 rounded-2xl border border-zinc-200 bg-white px-8 py-4 text-lg font-semibold transition-all hover:bg-zinc-50 hover:shadow-lg dark:border-zinc-700 dark:bg-zinc-800 dark:hover:bg-zinc-700"
+              className={[
+                'inline-flex flex-1 items-center justify-center gap-2 rounded-2xl',
+                'h-14 px-4 text-base font-semibold sm:px-6 sm:text-lg',
+                'border border-zinc-200 bg-white text-zinc-900',
+                'shadow-sm transition-all',
+                'hover:bg-zinc-50 hover:shadow-md active:translate-y-px motion-reduce:transform-none',
+                'dark:border-zinc-700 dark:bg-zinc-800 dark:text-zinc-50 dark:hover:bg-zinc-700',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-400/40 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black',
+              ].join(' ')}
             >
               Sign In
             </Link>
-            <button
-              type="button"
-              onClick={() => void signInAsGuest()}
-              className="inline-flex items-center justify-center gap-2 rounded-2xl bg-zinc-900 px-8 py-4 text-lg font-semibold text-white transition-all hover:bg-zinc-800 dark:bg-zinc-100 dark:text-black dark:hover:bg-zinc-200"
-            >
-              Play as Guest
-            </button>
           </>
         )}
       </div>
