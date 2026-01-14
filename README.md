@@ -2,6 +2,28 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+### Supabase environment variables
+
+1. Create a Supabase project.
+2. Copy `env.example` to `.env.local` and fill in:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+
+### Database schema + RLS
+
+This repo includes a Supabase migration at `supabase/migrations/001_initial_schema.sql` that creates:
+
+- `players`, `player_stats`
+- `games`, `moves`, `chat_messages`
+- `matchmaking_queue`, `game_spectators`
+
+It also enables Row Level Security (RLS) and adds policies that match the multiplayer plan.
+
+To apply it, you can either:
+
+- Use the Supabase SQL Editor (Project → SQL Editor) and run the file contents, or
+- Use the Supabase CLI migrations flow if you have it set up locally.
+
 First, run the development server:
 
 ```bash

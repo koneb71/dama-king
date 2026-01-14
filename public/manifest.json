@@ -1,0 +1,20 @@
+{
+  "name": "Dama King",
+  "short_name": "Dama King",
+  "description": "Play Filipino Checkers online for free! Challenge friends, compete in ranked matches, climb the leaderboard, or practice against AI.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ef4444",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["games", "entertainment"],
+  "lang": "en",
+  "orientation": "portrait-primary"
+}
