@@ -1,0 +1,26 @@
+name: Question
+description: Ask a question about setup, usage, or development
+title: "question: "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For questions, please include enough context for someone else to answer.
+        If this is a bug, use the **Bug report** template instead.
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your question
+      description: What do you want to know?
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Relevant logs, screenshots, or links.
+    validations:
+      required: false

@@ -1,0 +1,61 @@
+name: Feature request
+description: Suggest an idea or improvement
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the suggestion! Please share as much context as possible.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem / use case
+      description: What problem are you trying to solve? Who benefits?
+      placeholder: "As a player, I want ... so that ..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: What would you like to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Any other approaches you considered?
+    validations:
+      required: false
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - Auth / Sign-in
+        - Lobby / Create game
+        - Matchmaking
+        - Game room / Moves
+        - Chat
+        - Replay / History
+        - Leaderboard / Stats
+        - Docker / Deployment
+        - Other
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - label: I’m willing to open a PR for this
+          required: false
+        - label: This request does not require commercial licensing (see `LICENSE`)
+          required: false

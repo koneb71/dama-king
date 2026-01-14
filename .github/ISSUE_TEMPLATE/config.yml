@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: ../SECURITY.md
+    about: Please report security issues privately. Do not open public issues.
+  - name: Contributing guidelines
+    url: ../CONTRIBUTING.md
+    about: Setup instructions and contribution workflow.
