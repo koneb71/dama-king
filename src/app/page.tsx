@@ -137,17 +137,33 @@ export default function LandingPage() {
 
               <LandingHeroClient variant="cta" />
 
-              <div className="mt-6 flex justify-center lg:justify-start">
+              <div
+                className="
+                  mt-6 flex flex-col items-stretch gap-3 justify-center
+                  w-full max-w-xs sm:max-w-xs mx-auto
+                  lg:flex-row lg:items-center lg:gap-4 lg:justify-start lg:max-w-none
+                "
+              >
                 <a
                   href="https://www.producthunt.com/products/dama-king?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-dama-king"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="block dark:hidden"
+                  className="block dark:hidden w-full"
+                  style={{ height: '56px', maxWidth: '100%' }}
                 >
                   <img
                     alt="Dama King - Play Filipino Dama online: ranked, chat, AI, replays | Product Hunt"
-                    width="250"
-                    height="54"
+                    width="222"
+                    height="56"
+                    style={{
+                      height: '56px',
+                      minHeight: '56px',
+                      maxHeight: '56px',
+                      width: '100%',
+                      maxWidth: '100%',
+                      display: 'block',
+                      objectFit: 'contain',
+                    }}
                     src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1063048&theme=light&t=1768425319270"
                   />
                 </a>
@@ -155,13 +171,49 @@ export default function LandingPage() {
                   href="https://www.producthunt.com/products/dama-king?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-dama-king"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="hidden dark:block"
+                  className="hidden dark:block w-full"
+                  style={{ height: '56px', maxWidth: '100%' }}
                 >
                   <img
                     alt="Dama King - Play Filipino Dama online: ranked, chat, AI, replays | Product Hunt"
-                    width="250"
-                    height="54"
+                    width="222"
+                    height="56"
+                    style={{
+                      height: '56px',
+                      minHeight: '56px',
+                      maxHeight: '56px',
+                      width: '100%',
+                      maxWidth: '100%',
+                      display: 'block',
+                      objectFit: 'contain',
+                    }}
                     src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1063048&theme=dark&t=1768425319270"
+                  />
+                </a>
+                <a
+                  href="https://www.nxgntools.com/tools/dama-king?utm_source=dama-king"
+                  target="_blank"
+                  rel="noopener"
+                  className="w-full px-[10%] sm:px-0"
+                  style={{
+                    display: 'block',
+                    width: '100%',
+                    height: '56px',
+                    maxWidth: '100%',
+                  }}
+                >
+                  <img
+                    src="https://www.nxgntools.com/api/embed/dama-king?type=FEATURED_ON"
+                    alt="NextGen Tools Badge - The #1 AI Tools Directory & Launch Platform"
+                    style={{
+                      height: '56px',
+                      minHeight: '56px',
+                      maxHeight: '56px',
+                      width: '100%',
+                      maxWidth: '100%',
+                      display: 'block',
+                      objectFit: 'contain',
+                    }}
                   />
                 </a>
               </div>
