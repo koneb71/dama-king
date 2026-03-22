@@ -421,7 +421,7 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
       } catch {
         // ignore
       }
-      if (!cancelled) return;
+      if (cancelled) return;
     })();
 
     return () => {
