@@ -140,6 +140,11 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
     return 'anon' as const;
   }, [myColor, user]);
 
+  // Keep a ref always in sync so the async SUBSCRIBED callback reads the current role,
+  // not the stale closed-over value from when the effect first ran.
+  const presenceRoleRef = useRef(presenceRole);
+  presenceRoleRef.current = presenceRole;
+
   const legalMoves = useMemo(() => {
     if (!game) return [];
     if (!isMyTurn) return [];
@@ -230,7 +235,7 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
       const meta = (metas[0] ?? null) as { role?: unknown } | null;
       const role = typeof meta?.role === 'string' ? meta.role : 'unknown';
       if (role.startsWith('player:')) players += 1;
-      else spectators += 1;
+      else if (role === 'spectator') spectators += 1;
     }
 
     setOnlineCount(Math.max(1, online));
@@ -270,7 +275,10 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
           const next = payload.new as MoveRow;
           setMoves((cur) => {
             if (cur.some((m) => m.id === next.id)) return cur;
-            return [...cur, next].sort((a, b) => a.move_number - b.move_number);
+            return [...cur, next].sort(
+              (a, b) =>
+                (a.round_number ?? 1) - (b.round_number ?? 1) || a.move_number - b.move_number,
+            );
           });
         },
       )
@@ -279,7 +287,7 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
       })
       .subscribe(async (status) => {
         if (status === 'SUBSCRIBED') {
-          await channel.track({ onlineAt: new Date().toISOString(), role: presenceRole });
+          await channel.track({ onlineAt: new Date().toISOString(), role: presenceRoleRef.current });
         }
       });
 
@@ -351,6 +359,8 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
           .from('moves')
           .select('id, game_id, player_id, move_number, round_number, from_pos, to_pos, captures, created_at')
           .eq('game_id', gameId)
+          .eq('round_number', game.round_number ?? 1)
+          .order('round_number', { ascending: true })
           .order('move_number', { ascending: true });
         
         if (moveRows) {
@@ -368,7 +378,7 @@ export default function GameRoomPage({ params }: { params: Promise<{ gameId: str
     }, pollMs);
     
     return () => clearInterval(pollInterval);
-  }, [game?.status, gameId, supabase]);
+  }, [game?.status, game?.round_number, gameId, supabase]);
 
   const unlockSpectate = useCallback(
     async (opts?: { code?: string | null }) => {
