@@ -62,11 +62,8 @@ export function getLegalMoves(
       const from: Position = { row: r, col: c };
 
       const capturesForPiece = generateCaptures(board, from, piece, cfg);
-      if (capturesForPiece.length > 0) {
-        captureMoves.push(...capturesForPiece);
-      } else {
-        quietMoves.push(...generateNonCaptures(board, from, piece, cfg));
-      }
+      captureMoves.push(...capturesForPiece);
+      quietMoves.push(...generateNonCaptures(board, from, piece, cfg));
     }
   }
 

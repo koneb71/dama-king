@@ -114,8 +114,8 @@ export function chooseAiMove(
     return top[randInt(top.length)]!.move;
   }
 
-  // hard: shallow minimax with immediate-move ordering
-  const depth = 3;
+  // hard: minimax with immediate-move ordering
+  const depth = 6;
   const ordered: ScoredMove[] = legal
     .map((m) => ({ move: m, score: scoreImmediate(m) }))
     .sort((a, b) => b.score - a.score);
